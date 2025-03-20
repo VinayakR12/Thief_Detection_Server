@@ -7,10 +7,12 @@ from ultralytics import YOLO
 from deepface import DeepFace
 from flask_cors import CORS
 import torch
+from dotenv import load_dotenv
+
 
 app = Flask(__name__)
 CORS(app)
-
+load_dotenv() 
 # Check if YOLOv8 model exists, otherwise download it
 MODEL_PATH = "yolov8s.pt"
 
@@ -172,5 +174,9 @@ def get_image():
 #     # Run Flask app for Render deployment
 #     app.run(host='0.0.0.0', port=10000, debug=True)
 
+# if __name__ == '__main__':
+#     app.run(debug=True, host='0.0.0.0', port=5000)
+
 if __name__ == '__main__':
-    app.run(debug=True, host='0.0.0.0', port=5000)
+    port = int(os.environ.get("PORT", 5000))
+    app.run(debug=True, host='0.0.0.0', port=port)
